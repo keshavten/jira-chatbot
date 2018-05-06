@@ -1,0 +1,11 @@
+-> pip install Django==1.11.5
+-> python -m django --version
+
+-> C:\Users\keshav\AppData\Local\Programs\Python\Python36-32\Lib\site-packages
+-> http://sqliteviewer.flowsoft7.com/
+
+1. open powershell from the current folder location
+2. Run 'python manage.py migrate'
+3. Run 'python manage.py train'
+3. Run 'python manage.py runserver'
+4. Go to localhost:8000 
