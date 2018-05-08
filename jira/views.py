@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+from subprocess import Popen
 import json
+import os
 
 def saveToFile(request):
 	print('RECEIVED REQUEST: ' + request.method)
@@ -17,3 +20,12 @@ def saveToFile(request):
 		return JsonResponse({'text':'Thank you for the inputs. We will initiate the serach. Please search again after few minutes.'}) 
 	else: #GET
 		return HttpResponse("Get method not supported")
+		
+def trainBot(request):
+	os.system('C://python//trainBot.bat')
+	return HttpResponseRedirect("/?success=train")
+
+def runJiraUtil(request):
+	os.system('C://python//trainBot.bat')
+	return HttpResponseRedirect("/?success=util")
+	
