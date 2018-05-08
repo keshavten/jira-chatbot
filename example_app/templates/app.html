@@ -7,9 +7,34 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}"/>
   </head>
   <body>
-
+	
+	<nav class="navbar navbar-dark bg-inverse navbar-full">
+	  <a class="navbar-brand" href="{% url 'main' %}">
+		<img src="{% static 'img/jc.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Jira ChatBot">
+		Jira Chatbot
+	  </a>
+	  <ul class="nav navbar-nav float-xs-right">
+		<li class="nav-item">
+		  <a class="nav-link" href="{% url 'runJiraUtil' %}">Run Jira Util</a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" href="{% url 'trainBot' %}">Train your Bot</a>
+		</li>
+	  </ul>
+	</nav>
+	
     <div class="container">
-
+	{% if request.GET.success == "util" or request.GET.success == "train" %}
+		<div class="alert alert-success  alert-dismissible" style="margin-top: 5px;">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			{% if request.GET.success == "util" %}
+			Jira Utli ran Successful! Please try searching again for all unanswered queries.
+			{% elif request.GET.success == "train" %}
+			Chatbot training completed! Please try searching again for all unanswered queries.
+			{% endif %}
+		</div>
+	 {% endif %}
+	 
       <div class="jumbotron mt-1">
         <h1 class="jumbotron-heading text-xs-center">JIRA Chatbot</h1>
         <p class="lead text-xs-center">
