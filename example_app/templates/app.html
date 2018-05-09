@@ -47,7 +47,9 @@
           <div class="col-xs-6 offset-xs-3">
             <ul class="list-group chat-log js-chat-log">
             </ul>
-
+		  
+		<div id="btnArea" style="padding:5px;"></div>
+		  
             <div class="input-group input-group-lg mt-1">
               <input type="text" class="form-control js-text" placeholder="Type something to begin..."/>
               <span class="input-group-btn">
@@ -94,6 +96,29 @@
         $row.text(text);
         $chatlog.append($row);
       }
+	  
+	  // dynamically create buttons
+	  function createButton(btnArray) {
+		var buttons="";
+		for ( var i=0; i<btnArray.length; i++ ) {
+			buttons += '<input type="button" style="margin-right: 5px;" id="button_'+btnArray[i]+'" class="botBtns btn btn-primary" value="'+btnArray[i]+'"></input>';
+		}
+		$("#btnArea").html( buttons );
+		var doButtonPress = function( btnTxt ) {
+			// Change the text value
+			$input.val(btnTxt);
+			// Submit text
+			submitInput();
+			// set focus back to text box
+			$input.focus();
+		}
+
+		$('.botBtns').click(function () {
+			 doButtonPress(this.id.replace('button_', ''));
+		});
+	  
+	  }
+	  
 
       function submitInput() {
         var inputData = {
@@ -125,6 +150,16 @@
 			}else{
 				new_text_to_save = false;
 			}
+			//new code for buttons
+			if(statement.text.match(/\[(.*?)\]/) != null && statement.text.match(/\[(.*?)\]/)[1].split('/').length>0){
+				console.log('need to form button');
+				var btnArray = statement.text.match(/\[(.*?)\]/)[1].split('/');
+				createButton(btnArray);
+				statement.text = statement.text.replace(/[\[\]']+/g,'');
+			}else {
+				$("#btnArea").html( '' );
+			}
+			
             createRow(statement.text);
 
             // Clear the input field
